@@ -24,12 +24,19 @@ export default class IFTTT_These extends EventEmitter {
 
     super();
     if(settings.username === undefined || settings.password === undefined) {
-
+      // action only mode
     } else {
+      // start "wordpress" trigger server
       var app = express();
       app.set('port', settings.port || process.env.PORT || 1337);
+
+
+      // use ifttt-webhook to simulate a wordpress server
       app.use(webhook((data, done) => {
+        // verify username and password
         if(data.username === settings.username && data.password === settings.password) {
+
+          // remove username and password from data so it isn't accidentally leaked
           delete data.username;
           delete data.password;
 
@@ -51,22 +58,53 @@ export default class IFTTT_These extends EventEmitter {
         }
         done();
       }));
+
+      // start server
       var server = app.listen(app.get('port'), function() {
       });
     }
   }
-  ifThis(bool) {
 
+
+
+  /**
+   * Set up a condition for trigger
+   * @param  function bool Function which will evaluate true for a trigger.
+   */
+  ifThis(bool) {
+    var ifttt = this;
     return new Promise((resolve) => {
       function onChange() {
         if(bool()) {
           resolve();
+          ifttt.removeListener("change", onChange);
+          ifttt.removeListener("action", onChange);
         }
       }
       this.on("change",  onChange);
       this.on("action",  onChange);
     });
   }
+
+  /**
+   * Set up a condition for trigger
+   * @param  function bool Function which will evaluate true for a trigger.
+   */
+  ifThisThen(bool, callback) {
+    var ifttt = this;
+      function onChange() {
+        if(bool()) {
+          callback();
+        }
+      }
+      this.on("change",  onChange);
+      this.on("action",  onChange);
+  }
+
+  /**
+   * Software trigger
+   * @param  {String} action name of the trigger
+   */
   softTrigger(action) {
     if(!(action instanceof Array)) {
       action = [action];
@@ -75,10 +113,23 @@ export default class IFTTT_These extends EventEmitter {
       this.attention[item] = true;
     });
     this.emit("action");
-    action.forEach((item) => {
-      this.attention[item] = false;
-    });   
+    this.attention = {}
   }
+
+  /**
+   * Was Triggered
+   * @param  {String} name Name of item to check if triggered
+   * @return {bool}      true if the item was triggered.
+   */
+  wasTriggered(name) {
+    return this.attention.hasOwnProperty(name) && this.attention[name];
+
+  }
+
+  /**
+   * Set internal state
+   * @param {Object} state State variables to modify.
+   */
   setState(state) {
     let itemChanged = false;
     for(let key in state) {
@@ -87,19 +138,26 @@ export default class IFTTT_These extends EventEmitter {
         this.state[key] = state[key];
         this.attention[key] = true;
       } else {
+        // only keep the items which have changed to emit the action.
         delete state[key];
       }
     }
     if(itemChanged) {
       this.emit("change", state);
-      for(let key in state) {
-        this.attention[key] = false;
-      }
-
+      this.attention = {}
     }
   }
+
+  /**
+   * Send a trigger to the ifttt server 
+   * @param  string eventName       the name of the trigger which will be 
+   *                                specified by the Maker channel
+   * @param  function argsFunction  function which will return an array of up to 
+   *                                3 booleans, which will be maker values.
+   * @return Promise              
+   */
   trigger(eventName, argsFunction) {
-    var _this = this;
+    var ifttt = this;
     return function() {
       return new Promise((resolve, reject) => {
         var bodyObj = {};
@@ -110,7 +168,7 @@ export default class IFTTT_These extends EventEmitter {
         var options = {
           hostname: 'maker.ifttt.com',
           port: 80,
-          path: "/trigger/"+eventName+"/with/key/"+_this.key,
+          path: "/trigger/"+eventName+"/with/key/"+ifttt.key,
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

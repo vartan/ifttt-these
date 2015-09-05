@@ -1,6 +1,6 @@
 {
   "name": "ifttt-these",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "scripts": {
     "compile": "babel -d lib/ src/",
     "prepublish": "npm run compile",
@@ -15,5 +15,5 @@
   "devDependencies": {
     "babel": "^4.6.0"
   },
-  "description": "simple ifttt action"
+  "description": "This package is middleware for IFTTT, allowing custom triggers and actions."
 }
