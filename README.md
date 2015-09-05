@@ -57,7 +57,7 @@ This is all of the code I need for the middleware.
 ```
 
 
-##ifThis(bool()) 
+###ifThis(bool()) 
 ```javascript
     /**
      * One-time if-this
@@ -67,7 +67,7 @@ This is all of the code I need for the middleware.
 ```
 
 
-##ifThisThen(bool(), callback())
+###ifThisThen(bool(), callback())
 ```javascript
     /**
      * Set up a condition for trigger
@@ -76,7 +76,7 @@ This is all of the code I need for the middleware.
 ```
 
 
-##wasTriggered(string)
+###wasTriggered(string)
 ```javascript
     /**
      * Was Triggered
@@ -85,7 +85,7 @@ This is all of the code I need for the middleware.
      */
 ```
 
-##setState(Object)
+###setState(Object)
 ```javascript
     /**
      * Set internal state
@@ -94,7 +94,7 @@ This is all of the code I need for the middleware.
 ```
 
 
-##trigger(eventName, argsFunction)
+###trigger(eventName, argsFunction)
 ```javascript
     /**
      * Send a trigger to the ifttt server 
