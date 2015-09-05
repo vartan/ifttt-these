@@ -2,25 +2,27 @@
 
 This package is middleware for IFTTT, allowing custom triggers and actions.
 
-##Example Usage
+# Installing ifttt-these
+Run `npm install ifttt-these`
 
-### Initialize ifttt-these
+# Initialize ifttt-these
 
 Username and password are required for receiving triggers from the ifttt server; a key from the Maker channel is required for sending an action to the server.
 
+    var IFTTT_These = require("ifttt-these");
     var ifttt = new IFTTT_These({
       username: "username",
       password: "password", 
       key:      "makerkey"
     });
 
-### Create custom trigger middleware
+# Create custom trigger middleware
 Messages are received through the wordpress post action. There are two types of messages that we can receive. 
 
 1. State changes - A state change will have the contents of the post as JSON. The internal state variable will be updated with the values from the JSON. Each top-level variable in the object will be triggered (see below).
 2. Triggers. Any string that is not JSON is treated as a trigger, is a one-time shot.
 
-####Example
+##Example
 
 
 For this example, I want to to get a phone call if I am late for work. Most of the work is going to be on the IFTTT side of things:
