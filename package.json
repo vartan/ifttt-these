@@ -1,0 +1,19 @@
+{
+  "name": "ifttt-these",
+  "version": "0.1.0",
+  "scripts": {
+    "compile": "babel -d lib/ src/",
+    "prepublish": "npm run compile",
+    "example": "node lib/example-server.js"
+  },
+  "main": "lib/ifttt-these.js",
+  "dependencies": {
+    "core-js": "^0.6.0",
+    "express": "^4.13.3",
+    "express-ifttt-webhook": "^0.2.3"
+  },
+  "devDependencies": {
+    "babel": "^4.6.0"
+  },
+  "description": "simple ifttt action"
+}
