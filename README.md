@@ -1,6 +1,8 @@
 #ifttt-these
 
-This package is middleware for IFTTT, allowing custom triggers and actions.
+This package is middleware for IFTTT, allowing custom triggers and actions. 
+
+This package is under development, but should work as-is. If you have any suggestions on better terminologies/function names, please let me know!
 
 # Installing ifttt-these
 Run `npm install ifttt-these`
