@@ -68,8 +68,9 @@ export default class IFTTT_These extends EventEmitter {
 
 
   /**
-   * Set up a condition for trigger
+   * One-time if-this
    * @param  function bool Function which will evaluate true for a trigger.
+   * @returns {Promise} Promise
    */
   ifThis(bool) {
     var ifttt = this;

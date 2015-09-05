@@ -18,9 +18,9 @@ Username and password are required for receiving triggers from the ifttt server;
 
 # Create custom trigger middleware
 Messages are received through the wordpress post action. There are two types of messages that we can receive. 
-
+##Receiving
 1. State changes - A state change will have the contents of the post as JSON. The internal state variable will be updated with the values from the JSON. Each top-level variable in the object will be triggered (see below).
-2. Triggers. Any string that is not JSON is treated as a trigger, is a one-time shot.
+2. receiving triggers - Any string that is not JSON is treated as a trigger, which is a one-time shot.
 
 ##Example
 
@@ -40,3 +40,51 @@ This is all of the code I need for the middleware.
         ifttt.trigger("Call", ["Wake up you're late for work."]) 
     });
 
+##Functions
+
+###softTrigger(string)
+
+    /**
+     * Software trigger
+     * @param  {String} action name of the trigger
+     */
+    
+
+##ifThis(bool()) 
+
+    /**
+     * One-time if-this
+     * @param  {function} bool Function which will evaluate true for a trigger.
+     * @returns {Promise} Promise
+     */
+
+##ifThisThen(bool(), callback())
+    /**
+     * Set up a condition for trigger
+     * @param  {function} bool Function which will evaluate true for a trigger.
+     */
+##wasTriggered(string)
+
+    /**
+     * Was Triggered
+     * @param  {String} name Name of item to check if triggered
+     * @return {bool}      true if the item was triggered.
+     */
+  
+##setState(Object)
+    /**
+     * Set internal state
+     * @param {Object} state State variables to modify.
+     */
+
+
+##trigger(eventName, argsFunction)
+
+    /**
+     * Send a trigger to the ifttt server 
+     * @param  string eventName       the name of the trigger which will be 
+     *                                specified by the Maker channel
+     * @param  function argsFunction  function which will return an array of up to 
+     *                                3 booleans, which will be maker values.
+     * @return Promise              
+     */
