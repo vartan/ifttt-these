@@ -150,7 +150,7 @@ export default class IFTTT_These extends EventEmitter {
   }
 
   /**
-   * Send a trigger to the ifttt server 
+   * Promise to send a trigger to the ifttt server 
    * @param  string eventName       the name of the trigger which will be 
    *                                specified by the Maker channel
    * @param  function argsFunction  function which will return an array of up to 
@@ -161,7 +161,7 @@ export default class IFTTT_These extends EventEmitter {
     var ifttt = this;
     return function() {
       return new Promise((resolve, reject) => {
-        ifttt.trigger(eventName,argsFunction,resolve, reject);
+        ifttt.trigger(eventName,argsFunction, resolve, reject);
       });
     };
   } 
@@ -171,7 +171,6 @@ export default class IFTTT_These extends EventEmitter {
    *                                specified by the Maker channel
    * @param  function argsFunction  function which will return an array of up to 
    *                                3 booleans, which will be maker values.
-   * @return Promise              
    */
   trigger(eventName, argsFunction, callback, err) {
     var bodyObj = {};
