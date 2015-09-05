@@ -35,7 +35,8 @@ For this example, I want to to get a phone call if I am late for work. Most of t
 This is all of the code I need for the middleware.
 
     ifttt.ifThisThen(
-      () => ifttt.wasTriggered("TimeToLeave") && ifttt.state.location !== "home",
-      () => { ifttt.trigger("Call", ["Wake up you're late for work."]) }
-    );
+      function() { return ifttt.wasTriggered("TimeToLeave") && ifttt.state.location !== "home"; },
+      function() { 
+        ifttt.trigger("Call", ["Wake up you're late for work."]) 
+    });
 
