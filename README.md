@@ -1,6 +1,6 @@
 #ifttt-these
 
-This package is middleware for IFTTT, allowing custom triggers and actions. 
+This package is middleware for IFTTT, allowing custom triggers and actions. Ever wanted to use boolean logic for an action? This is the right place to look.
 
 This package is under development, but should work as-is. If you have any suggestions on better terminologies/function names, please let me know!
 
