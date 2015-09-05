@@ -11,12 +11,14 @@ Run `npm install ifttt-these`
 
 Username and password are required for receiving triggers from the ifttt server; a key from the Maker channel is required for sending an action to the server.
 
+```javascript
     var IFTTT_These = require("ifttt-these");
     var ifttt = new IFTTT_These({
       username: "username",
       password: "password", 
       key:      "makerkey"
     });
+```
 
 # Create custom trigger middleware
 Messages are received through the wordpress post action. There are two types of messages that we can receive. 
@@ -36,52 +38,64 @@ For this example, I want to to get a phone call if I am late for work. Most of t
 
 This is all of the code I need for the middleware.
 
+```javascript
     ifttt.ifThisThen(
       function() { return ifttt.wasTriggered("TimeToLeave") && ifttt.state.location !== "home"; },
       function() { 
         ifttt.trigger("Call", ["Wake up you're late for work."]) 
     });
+```
 
 ##Functions
 
 ###softTrigger(string)
-
+```javascript
     /**
      * Software trigger
      * @param  {String} action name of the trigger
      */
-    
+```
+
 
 ##ifThis(bool()) 
-
+```javascript
     /**
      * One-time if-this
      * @param  {function} bool Function which will evaluate true for a trigger.
      * @returns {Promise} Promise
      */
+```
+
 
 ##ifThisThen(bool(), callback())
+```javascript
     /**
      * Set up a condition for trigger
      * @param  {function} bool Function which will evaluate true for a trigger.
      */
-##wasTriggered(string)
+```
 
+
+##wasTriggered(string)
+```javascript
     /**
      * Was Triggered
      * @param  {String} name Name of item to check if triggered
      * @return {bool}      true if the item was triggered.
      */
-  
+```
+
 ##setState(Object)
+```javascript
     /**
      * Set internal state
      * @param {Object} state State variables to modify.
      */
+```
 
 
 ##trigger(eventName, argsFunction)
-
+```javascript
     /**
      * Send a trigger to the ifttt server 
      * @param  string eventName       the name of the trigger which will be 
@@ -90,3 +104,4 @@ This is all of the code I need for the middleware.
      *                                3 booleans, which will be maker values.
      * @return Promise              
      */
+```
