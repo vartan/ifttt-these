@@ -96,12 +96,23 @@ This is all of the code I need for the middleware.
 
 ###trigger(eventName, argsFunction)
 ```javascript
-    /**
-     * Send a trigger to the ifttt server 
-     * @param  string eventName       the name of the trigger which will be 
-     *                                specified by the Maker channel
-     * @param  function argsFunction  function which will return an array of up to 
-     *                                3 booleans, which will be maker values.
-     * @return Promise              
-     */
+  /**
+   * Send a trigger to the ifttt server 
+   * @param  string eventName       the name of the trigger which will be 
+   *                                specified by the Maker channel
+   * @param  function argsFunction  function which will return an array of up to 
+   *                                3 booleans, which will be maker values.
+   */
+```
+
+###triggerPromise(eventName, argsFunction)
+```javascript
+  /**
+   * Promise to send a trigger to the ifttt server 
+   * @param  string eventName       the name of the trigger which will be 
+   *                                specified by the Maker channel
+   * @param  function argsFunction  function which will return an array of up to 
+   *                                3 booleans, which will be maker values.
+   * @return Promise              
+   */
 ```
