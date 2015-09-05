@@ -157,39 +157,57 @@ export default class IFTTT_These extends EventEmitter {
    *                                3 booleans, which will be maker values.
    * @return Promise              
    */
-  trigger(eventName, argsFunction) {
+  triggerPromise(eventName, argsFunction) {
     var ifttt = this;
     return function() {
       return new Promise((resolve, reject) => {
-        var bodyObj = {};
-        if(argsFunction)  {
-          var args = argsFunction();
-          args.forEach((val, i) => {bodyObj["value"+(i+1)] = val;});
-        }
-        var options = {
-          hostname: 'maker.ifttt.com',
-          port: 80,
-          path: "/trigger/"+eventName+"/with/key/"+ifttt.key,
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          }
-        };
-        var req = http.request(options, (res) => {
-          var s = "";
-          res.on('data', (d)=>{
-            s += d.toString('utf8');
-          });
-          req.on('close', () => {resolve(s);});
-        });
-        req.on('error', () => {
-          reject();
-        });
-        var bodyString = JSON.stringify(bodyObj);
-        req.write(bodyString);
-        req.end();
+        ifttt.trigger(eventName,argsFunction,resolve, reject);
       });
     };
+  } 
+  /**
+   * Send a trigger to the ifttt server 
+   * @param  string eventName       the name of the trigger which will be 
+   *                                specified by the Maker channel
+   * @param  function argsFunction  function which will return an array of up to 
+   *                                3 booleans, which will be maker values.
+   * @return Promise              
+   */
+  trigger(eventName, argsFunction, callback, err) {
+    var bodyObj = {};
+    if(argsFunction)  {
+      var args = argsFunction();
+      args.forEach((val, i) => {bodyObj["value"+(i+1)] = val;});
+    }
+    var options = {
+      hostname: 'maker.ifttt.com',
+      port: 80,
+      path: "/trigger/"+eventName+"/with/key/"+this.key,
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    };
+    var req = http.request(options, (res) => {
+      var s = "";
+      res.on('data', (d)=>{
+        s += d.toString('utf8');
+      });
+      req.on('close', () => {
+        if(callback) {
+         callback(s);
+        }
+      });
+    });
+    req.on('error', (e) => {
+      if(err) {
+        err(e);
+      }
+    });
+    var bodyString = JSON.stringify(bodyObj);
+    req.write(bodyString);
+    req.end();
+
   } 
   kill() {
     this.destructor(); 

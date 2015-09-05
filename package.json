@@ -1,6 +1,6 @@
 {
   "name": "ifttt-these",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "scripts": {
     "compile": "babel -d lib/ src/",
     "prepublish": "npm run compile",

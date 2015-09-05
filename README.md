@@ -42,7 +42,7 @@ This is all of the code I need for the middleware.
     ifttt.ifThisThen(
       function() { return ifttt.wasTriggered("TimeToLeave") && ifttt.state.location !== "home"; },
       function() { 
-        ifttt.trigger("Call", ["Wake up you're late for work."]) 
+        ifttt.trigger("Call", function(){return ["Wake up you're late for work."]}) 
     });
 ```
 
