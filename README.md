@@ -23,8 +23,8 @@ Username and password are required for receiving triggers from the ifttt server;
 # Create custom trigger middleware
 Messages are received through the wordpress post action. There are two types of messages that we can receive. 
 ##Receiving
-1. State changes - A state change will have the contents of the post as JSON. The internal state variable will be updated with the values from the JSON. Each top-level variable in the object will be triggered (see below).
-2. receiving triggers - Any string that is not JSON is treated as a trigger, which is a one-time shot.
+1. State changes - A state change will have the contents of the post as JSON, and the title "state". The internal state variable will be updated with the values from the JSON. Each top-level variable in the object will be triggered (see below).
+2. receiving triggers - Set the title as "action", and the content as the name of your trigger
 
 ##Example
 
