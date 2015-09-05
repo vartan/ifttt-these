@@ -30,7 +30,7 @@ Messages are received through the wordpress post action. There are two types of 
 For this example, I want to to get a phone call if I am late for work. Most of the work is going to be on the IFTTT side of things:
 
 1. I set a date/time event for every weekday at 6:45, to do a wordpress post. The content for the post will be "TimeToLeave".
-2. I set up a few events which keep track of where I am; for this example, I have two location events. When I leave home, I send `{location:"unknown"}`, and when I get home, send `{location: home}`.
+2. I set up a few events which keep track of where I am; for this example, I have two location events. When I leave home, I send `{location:"unknown"}`, and when I get home, send `{location: "home"}`.
 3. I have a final event, when I send the trigger "Call", I trigger a phone call which will speak the first argument.
 
 
