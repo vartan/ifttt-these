@@ -134,7 +134,8 @@ export default class IFTTT_These extends EventEmitter {
   setState(state) {
     let itemChanged = false;
     for(let key in state) {
-      if(!this.state.hasOwnProperty(key) || this.state[key] !== state[key]) {
+      const TRIGGER_ONLY_ON_CHANGE = false;
+      if(!TRIGGER_ONLY_ON_CHANGE || !this.state.hasOwnProperty(key) || this.state[key] !== state[key]) {
         itemChanged = true;
         this.state[key] = state[key];
         this.attention[key] = true;
